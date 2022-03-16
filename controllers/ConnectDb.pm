@@ -9,9 +9,9 @@ use Exporter qw(import);
 ### Usar "our" ao invés de "my"
 our @EXPORT = qw($dbh);
 
-my $db = 'DBI:mysql:escola';
-my $user = 'kemps';
-my $password = 'root';
+my $db = '';
+my $user = '';
+my $password = '';
 
 ## lembrar de usar "our" ao invés de "my" para exportar
 our $dbh = DBI->connect ($db,

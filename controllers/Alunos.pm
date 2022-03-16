@@ -1,5 +1,8 @@
 package Alunos;
 
+use strict;
+use warnings;
+
 use DBI;
 
 ## Usar somente isso para importar a variavel $dbh
@@ -7,7 +10,8 @@ use lib ".";
 
 use ConnectDb;
 
-
+my $connection = ConnectDb->new();
+my $dbh = $connection->conn();
 
 sub new {
    my $class = shift;
@@ -105,8 +109,6 @@ sub deleteById {
     my $sth = $dbh->prepare($query);
     $sth->execute();
 }
-
-
 
 
 1;

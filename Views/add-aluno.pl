@@ -17,7 +17,8 @@ print <<HTML
 <body>
      <div class="container">
      <h1 class="mt-2">Formulario para cadastro de alunos</h1>
-     <form action="../Helpers/add-aluno-back.pl" method="POST">
+     <form action="../routes/AlunoRoute.cgi" method="GET">
+     <input type="hidden" name="function" value="create"/>
      <div class="form-group">
      <label for="id" class="form-label">Id: </label>
      <input type="number" name="id">

@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 use strict;
 use CGI ':standard';
-use lib "controllers"; 
+# use lib "controllers"; 
 
-use Alunos;
+# use Alunos;
 
 print "Content-type: text/html\n\n";
 
@@ -26,20 +26,20 @@ print <<HTML;
 HTML
 
 
-my $alunos = Alunos->new();
-my $sth = $alunos->getAll();
+# my $alunos = Alunos->new();
+# my $sth = $alunos->getAll();
 
-while (my @data = $sth->fetchrow_array()) {
-my $id = $data[0];
-my $nome = $data[1];
-my $matricula = $data[2];
-my $telefone = $data[3];
+# while (my @data = $sth->fetchrow_array()) {
+# my $id = $data[0];
+# my $nome = $data[1];
+# my $matricula = $data[2];
+# my $telefone = $data[3];
 
-print "<tr><td>$id</td><td>$nome</td><td>$matricula</td><td>$telefone</td>
-        <td><a class='btn btn-primary' href='Views/edit-aluno.pl?editedId=$id'>Edit</a></td>
-        <td><a class='btn btn-danger' href='Views/delete-aluno.pl?deleteId=$id'>Delete</a></td></tr>";
+# print "<tr><td>$id</td><td>$nome</td><td>$matricula</td><td>$telefone</td>
+#         <td><a class='btn btn-primary' href='Views/edit-aluno.pl?editedId=$id'>Edit</a></td>
+#         <td><a class='btn btn-danger' href='Views/delete-aluno.pl?deleteId=$id'>Delete</a></td></tr>";
 
-};
+# };
 
 
 

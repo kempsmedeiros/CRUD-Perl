@@ -3,6 +3,11 @@ package AlunoRule;
 use strict;
 use warnings;
 
+use lib "../models";
+
+use AlunoModel;
+
+
 
 
 sub new {
@@ -17,6 +22,14 @@ sub new {
     };
     bless $self, $class;
     return $self;
+
+}
+
+sub create {
+    my ($self) = @_;
+    my $alunoModel = AlunoModel->new($self->{id}, $self->{nome}, $self->{matricula}, $self->{telefone});
+    $alunoModel->create();
+    
 }
 
 

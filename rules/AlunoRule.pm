@@ -13,7 +13,6 @@ use AlunoModel;
 sub new {
    my $class = shift;
    my $self = {
-        #member variables
         id => shift,
         nome => shift,
         matricula => shift,
@@ -28,7 +27,8 @@ sub new {
 sub create {
     my ($self) = @_;
     my $alunoModel = AlunoModel->new($self->{id}, $self->{nome}, $self->{matricula}, $self->{telefone});
-    $alunoModel->create();
+    my $rowsAffecteds = $alunoModel->create();
+    return $rowsAffecteds;
     
 }
 
@@ -50,13 +50,15 @@ sub getById {
 sub updateById {
     my ($self, $id_passed) = @_;
     my $alunoModel = AlunoModel->new($self->{id}, $self->{nome}, $self->{matricula}, $self->{telefone});
-    $alunoModel->updateById();
+    my $rowsAffecteds = $alunoModel->updateById();
+    return $rowsAffecteds;
 }
 
 sub deleteById {
     my ($self, $id_passed) = @_;
     my $alunoModel = AlunoModel->new();
-    $alunoModel->deleteById($id_passed);
+    my $rowsAffecteds = $alunoModel->deleteById($id_passed);
+    return $rowsAffecteds;
 }
 
 

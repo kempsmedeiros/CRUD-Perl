@@ -30,7 +30,9 @@ sub create {
     my $query = "INSERT INTO alunos VALUES(?, ?, ?, ?)";
     my $stateHandler = $database->prepare($query);
     $stateHandler->execute($self->{id}, $self->{nome}, $self->{matricula}, $self->{telefone});
-    
+    $database->disconnect();
+    my $rowsAffecteds = $stateHandler->rows;    
+    return $rowsAffecteds;
 }
 
 sub getAll {
@@ -38,6 +40,7 @@ sub getAll {
     my $query = "SELECT id, nome, matricula, telefone FROM alunos";
     my $stateHandler = $database->prepare($query);
     $stateHandler->execute();
+    $database->disconnect();
     return $stateHandler;
     
 }
@@ -47,6 +50,7 @@ sub getById {
     my $query = "SELECT id, nome, matricula, telefone FROM alunos WHERE id=?";
     my $stateHandler = $database->prepare($query);
     $stateHandler->execute($id_passed);
+    $database->disconnect();
     return $stateHandler;
 }
 
@@ -55,6 +59,10 @@ sub updateById {
     my $query = "UPDATE alunos SET nome=?, matricula=?, telefone=? WHERE id=?";
     my $stateHandler = $database->prepare($query);
     $stateHandler->execute($self->{nome}, $self->{matricula}, $self->{telefone}, $self->{id});
+    $database->disconnect();
+    my $rowsAffecteds = $stateHandler->rows;    
+    return $rowsAffecteds;
+    
 }
 
 sub deleteById {
@@ -62,6 +70,10 @@ sub deleteById {
     my $query = "DELETE FROM alunos WHERE id=?";
     my $stateHandler = $database->prepare($query);
     $stateHandler->execute($id_passed);
+    $database->disconnect();
+    my $rowsAffecteds = $stateHandler->rows;    
+    return $rowsAffecteds;
+   
 }
 
 

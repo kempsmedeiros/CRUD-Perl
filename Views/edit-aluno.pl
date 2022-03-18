@@ -57,7 +57,6 @@ print "<div>
 
 print <<HTML
      <div>
-     <!-- <a href="edit-aluno-back.pl?updateid=$id">EDITAR</a>-->
      <input type="submit" class="btn btn-primary">
      </div>
      </form>

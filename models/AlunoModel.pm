@@ -57,5 +57,12 @@ sub updateById {
     $stateHandler->execute($self->{nome}, $self->{matricula}, $self->{telefone}, $self->{id});
 }
 
+sub deleteById {
+    my ($self, $id_passed) = @_;
+    my $query = "DELETE FROM alunos WHERE id=?";
+    my $stateHandler = $database->prepare($query);
+    $stateHandler->execute($id_passed);
+}
+
 
 1;

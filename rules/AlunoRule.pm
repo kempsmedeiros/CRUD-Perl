@@ -53,5 +53,11 @@ sub updateById {
     $alunoModel->updateById();
 }
 
+sub deleteById {
+    my ($self, $id_passed) = @_;
+    my $alunoModel = AlunoModel->new();
+    $alunoModel->deleteById($id_passed);
+}
+
 
 1;

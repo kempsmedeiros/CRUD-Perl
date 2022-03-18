@@ -13,6 +13,7 @@ my $id = param('id');
 my $nome = param('nome');
 my $matricula = param('matricula');
 my $telefone = param('telefone');
+my $deletedId = param('deleteId');
 
 if( $function eq "create" ) {
     my $newAluno = AlunoRule->new($id, $nome, $matricula, $telefone);
@@ -31,6 +32,13 @@ if( $function eq "updateById" ) {
 
     
 } ;
+
+if ( $function eq "deleteById") {
+    my $newAluno = AlunoRule->new();
+    $newAluno->deleteById($deletedId);
+    my $q = CGI->new;
+    print $q->redirect('../index.pl'); 
+}
 
 
 

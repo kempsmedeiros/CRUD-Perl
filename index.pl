@@ -44,8 +44,8 @@ my $matricula = $data[2];
 my $telefone = $data[3];
 
 print "<tr><td>$id</td><td>$nome</td><td>$matricula</td><td>$telefone</td>
-        <td><a class='btn btn-primary' href='Views/edit-aluno.pl?&editedId=$id'>Edit</a></td>
-        <td><a class='btn btn-danger' href='Views/delete-aluno.pl?deleteId=$id'>Delete</a></td></tr>";
+        <td><a class='btn btn-primary' href='Views/edit-aluno.pl?editedId=$id'>Edit</a></td>
+        <td><a class='btn btn-danger' href='routes/AlunoRoute.cgi?function=deleteById&deleteId=$id'>Delete</a></td></tr>";
 
 };
 

@@ -32,5 +32,26 @@ sub create {
     
 }
 
+sub getAll {
+    my ($self) = @_;
+    my $alunoModel = AlunoModel->new($self->{id}, $self->{nome}, $self->{matricula}, $self->{telefone});
+    my $stateHandler = $alunoModel->getAll();
+    return $stateHandler;
+}   
+
+sub getById {
+    my ($self, $id_passed) = @_;
+    my $alunoModel = AlunoModel->new($self->{id}, $self->{nome}, $self->{matricula}, $self->{telefone});
+    my $stateHandler = $alunoModel->getById($id_passed);
+    return $stateHandler;
+
+} 
+
+sub updateById {
+    my ($self, $id_passed) = @_;
+    my $alunoModel = AlunoModel->new($self->{id}, $self->{nome}, $self->{matricula}, $self->{telefone});
+    $alunoModel->updateById();
+}
+
 
 1;

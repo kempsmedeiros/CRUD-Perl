@@ -1,15 +1,16 @@
 #!/usr/bin/perl
 
+use lib "../rules";
+
 use CGI ':standard';
-use lib "../controllers"; 
-use Alunos;
+use AlunoRule;
 
 print "Content-type: text/html\n\n";
 
 my $id = param('editedId');
 
-my $aluno_editado = Alunos->new();
-my $sth = $aluno_editado->getById($id);
+my $aluno_editado = AlunoRule->new();
+my $stateHandler = $aluno_editado->getById($id);
 
 
 print <<HTML; 
@@ -26,11 +27,12 @@ print <<HTML;
 <body>
      <div class="container">
      <h1 class="mt-2">Editar aluno</h1>
-     <form action="../Helpers/edit-aluno-back.pl" method="GET">
+     <form action="../routes/AlunoRoute.cgi" method="GET">
+     <input type="hidden" name="function" value="updateById"/>
 
 HTML
 
-while (my @data = $sth->fetchrow_array()) {
+while (my @data = $stateHandler->fetchrow_array()) {
 my $id = $data[0];
 my $nome = $data[1];
 my $matricula = $data[2];

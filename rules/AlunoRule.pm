@@ -2,9 +2,7 @@ package AlunoRule;
 
 use strict;
 use warnings;
-
 use lib "../models";
-
 use AlunoModel;
 
 
@@ -23,6 +21,7 @@ sub new {
     return $self;
 
 }
+
 
 sub create {
     my ($self) = @_;

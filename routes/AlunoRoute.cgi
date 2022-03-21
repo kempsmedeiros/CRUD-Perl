@@ -20,6 +20,11 @@ my $matricula = param('matricula');
 my $telefone = param('telefone');
 my $deletedId = param('deleteId');
 
+sub createAlunoWithData {
+    my $newAluno = AlunoRule->new($id, $nome, $matricula, $telefone);
+    return $newAluno
+}
+
 
 my $returnSuccess = {
     statuscode => 200,
@@ -49,22 +54,19 @@ sub convertToJson {
     return $jsonFinal;
 }
 
-
 my $returnSuccessJson = convertToJson($returnSuccess);
 my $returnFailedJson = convertToJson($returnFailed);
 my $returnUpdateSucessJson = convertToJson($returnUpdateSuccess);
 my $returnDeleteSucessJson = convertToJson($returnDeleteSuccess);
 
-
-if( $function eq "create" ) {
-    my $newAluno = AlunoRule->new($id, $nome, $matricula, $telefone);
-    my $rowsAffecteds = $newAluno->create();
+sub printHeader {
+    my ($rowsAffecteds, $message) = @_;
     if ($rowsAffecteds > 0) {
     print $cgi->header(
         -type   => 'application/json',
         -status => 200,
     );
-    print $returnSuccessJson;
+    print $message;
     
     } else {
         print $cgi->header(
@@ -73,48 +75,28 @@ if( $function eq "create" ) {
     );
     print $returnFailedJson;
     }
+}
+
+
+if( $function eq "create" ) {
+    my $newAluno = createAlunoWithData();
+    my $rowsAffecteds = $newAluno->create();
+    printHeader($rowsAffecteds, $returnSuccessJson);
        
 } ;
 
 if( $function eq "updateById" ) {
-    my $newAluno = AlunoRule->new($id, $nome, $matricula, $telefone);
+    my $newAluno = createAlunoWithData();
     my $rowsAffecteds = $newAluno->updateById($id);
-    if ($rowsAffecteds > 0) {
-    print $cgi->header(
-        -type   => 'application/json',
-        -status => 200,
-    );
-    print $returnUpdateSucessJson;
-    
-    } else {
-        print $cgi->header(
-        -type   => 'application/json',
-        -status => 404,
-    );
-    print $returnFailedJson;
-    }
+    printHeader($rowsAffecteds, $returnUpdateSucessJson);
     
 } ;
 
 if ( $function eq "deleteById") {
     my $newAluno = AlunoRule->new();
     my $rowsAffecteds = $newAluno->deleteById($deletedId);
-    if ($rowsAffecteds > 0) {
-    print $cgi->header(
-        -type   => 'application/json',
-        -status => 200,
-    );
-    print $returnDeleteSucessJson;
-    
-    } else {
-        print $cgi->header(
-        -type   => 'application/json',
-        -status => 404,
-    );
-    print $returnFailedJson;
-    }
+    printHeader($rowsAffecteds, $returnDeleteSucessJson);
     
 }
-
 
 

@@ -5,9 +5,7 @@ use warnings;
 use Encode qw(decode encode);
 use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use CGI ':standard';
-
 use lib "../rules";
-
 use JSON;
 use AlunoRule;
 
@@ -21,6 +19,7 @@ my $nome = param('nome');
 my $matricula = param('matricula');
 my $telefone = param('telefone');
 my $deletedId = param('deleteId');
+
 
 my $returnSuccess = {
     statuscode => 200,
@@ -42,17 +41,20 @@ my $returnDeleteSuccess = {
     message => "OK - Usuario deletado com sucesso"
 };
 
-my $returnSucessJsonText = encode_json $returnSuccess;
-my $returnSucessJson = $json->encode( $returnSucessJsonText );
 
-my $returnFailedJsonText = encode_json $returnFailed;
-my $returnFailedJson = $json->encode( $returnFailedJsonText );
+sub convertToJson {
+    my ($return) = @_;
+    my $returnJsonText = encode_json $return;
+    my $jsonFinal = $json->encode($returnJsonText);
+    return $jsonFinal;
+}
 
-my $returnUpdateSucessJsonText = encode_json $returnUpdateSuccess;
-my $returnUpdateSucessJson = $json->encode( $returnUpdateSucessJsonText );
 
-my $returnDeleteSucessJsonText = encode_json $returnDeleteSuccess;
-my $returnDeleteSucessJson = $json->encode( $returnDeleteSucessJsonText );
+my $returnSuccessJson = convertToJson($returnSuccess);
+my $returnFailedJson = convertToJson($returnFailed);
+my $returnUpdateSucessJson = convertToJson($returnUpdateSuccess);
+my $returnDeleteSucessJson = convertToJson($returnDeleteSuccess);
+
 
 if( $function eq "create" ) {
     my $newAluno = AlunoRule->new($id, $nome, $matricula, $telefone);
@@ -62,7 +64,7 @@ if( $function eq "create" ) {
         -type   => 'application/json',
         -status => 200,
     );
-    print $returnSucessJson;
+    print $returnSuccessJson;
     
     } else {
         print $cgi->header(

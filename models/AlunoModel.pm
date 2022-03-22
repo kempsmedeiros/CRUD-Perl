@@ -40,7 +40,7 @@ sub getAll {
     my $query = "SELECT id, nome, matricula, telefone FROM alunos";
     my $stateHandler = $database->prepare($query);
     $stateHandler->execute();
-    $database->disconnect();
+    # $database->disconnect();
     return $stateHandler;
     
 }
@@ -50,7 +50,7 @@ sub getById {
     my $query = "SELECT id, nome, matricula, telefone FROM alunos WHERE id=?";
     my $stateHandler = $database->prepare($query);
     $stateHandler->execute($id_passed);
-    $database->disconnect();
+    # $database->disconnect();
     return $stateHandler;
 }
 

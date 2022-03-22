@@ -19,6 +19,7 @@ my $nome = param('nome');
 my $matricula = param('matricula');
 my $telefone = param('telefone');
 my $deletedId = param('deleteId');
+my $editedId = param('editedId');
 
 sub createAlunoWithData {
     my $newAluno = AlunoRule->new($id, $nome, $matricula, $telefone);
@@ -97,6 +98,32 @@ if ( $function eq "deleteById") {
     my $rowsAffecteds = $newAluno->deleteById($deletedId);
     printHeader($rowsAffecteds, $returnDeleteSucessJson);
     
+};
+
+if ( $function eq "getAll") {
+    my $newAluno = AlunoRule->new();
+    my $result = $newAluno->getAll();
+    my $cgi = CGI->new;
+    print $cgi->header(
+        -type   => 'application/json',
+        -status => 200,
+    );
+    print $result;
+    
 }
+
+if ( $function eq "getById") {
+    my $newAluno = createAlunoWithData();
+    my $result = $newAluno->getById($editedId);
+    my $cgi = CGI->new;
+    print $cgi->header(
+        -type   => 'application/json',
+        -status => 200,
+    );
+    print $result;
+
+}
+
+
 
 

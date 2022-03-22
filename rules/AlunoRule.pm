@@ -2,10 +2,12 @@ package AlunoRule;
 
 use strict;
 use warnings;
+use JSON;
+use Encode qw(decode encode);
 use lib "../models";
 use AlunoModel;
 
-
+my $json = JSON->new->allow_nonref;
 
 
 sub new {
@@ -35,15 +37,44 @@ sub getAll {
     my ($self) = @_;
     my $alunoModel = AlunoModel->new($self->{id}, $self->{nome}, $self->{matricula}, $self->{telefone});
     my $stateHandler = $alunoModel->getAll();
-    return $stateHandler;
+    my @listOfData;
+    while (my @data = $stateHandler->fetchrow_array()) {
+    my $id = $data[0];
+    my $nome = $data[1];
+    my $matricula = $data[2];
+    my $telefone = $data[3];
+    my $row = {
+        id => $id,
+        nome => $nome,
+        matricula => $matricula,
+        telefone => $telefone,
+    };
+    push @listOfData, $row;        
+    };
+    my $jsonList = $json->encode(\@listOfData);
+    return $jsonList;
 }   
 
 sub getById {
     my ($self, $id_passed) = @_;
     my $alunoModel = AlunoModel->new($self->{id}, $self->{nome}, $self->{matricula}, $self->{telefone});
     my $stateHandler = $alunoModel->getById($id_passed);
-    return $stateHandler;
-
+    my @listOfData;
+    while (my @data = $stateHandler->fetchrow_array()) {
+    my $id = $data[0];
+    my $nome = $data[1];
+    my $matricula = $data[2];
+    my $telefone = $data[3];
+    my $row = {
+        id => $id,
+        nome => $nome,
+        matricula => $matricula,
+        telefone => $telefone,
+    };
+    push @listOfData, $row;   
+    }
+    my $jsonList = $json->encode(\@listOfData);
+    return $jsonList;
 } 
 
 sub updateById {
